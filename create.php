@@ -14,7 +14,5 @@ if(isset($_POST['submit'])){
         redirect('index.php','Somthing warng','error');
     }
 }
-
-
 $template->categories = $job->getCategories();
 echo $template;

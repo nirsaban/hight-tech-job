@@ -1,15 +1,15 @@
 <?php include 'inc/header.php';?>
-<?php if(isset($_SESSION['message'])):?>
-<div class="container col-md-5"> 
-<?php displayMessage();?>
-</div>
-<?php endif?>
+<?php
+ if(isset($_SESSION['name'])){
+$name = $_SESSION['name'];
+}
+?>
 <main role="main">
 <?php displayMessage();?>
   <!-- Main jumbotron for a primary marketing message or call to action -->
   <div class="jumbotron">
     <div class="container">
-      <h1 class="display-3">Find a Job</h1>
+<h1 class="display-3">welcome <?php if(isset($_SESSION['name'])):?> <?= " back $name" ?><?php endif;?>Find a Job</h1>
       <div class="row md-5 text-center">
       <form action="index.php" method="GET"> 
     <select name="category" class="form-control" id="">

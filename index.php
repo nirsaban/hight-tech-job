@@ -2,6 +2,7 @@
 <?php 
 //include the system that load the classes
 include_once 'config/init.php';
+session_start();
 ?>
 <?php
 $job = new Job();
@@ -19,6 +20,7 @@ $template->title = $job->getCategory($category)->name;
 }
 
 $template->categories = $job->getCategories();
+
 echo $template;
 
 ?>

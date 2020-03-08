@@ -5,10 +5,10 @@ class Job {
 
     private $db;
     public function __construct(){
-        $this->db = new Database;
+        $this->db = new Database();
     }
     public function getAllJobs(){
-        $this->db->query("SELECT jobs.*,categories.name as cname
+        $this->db->query("SELECT jobs.*,categories.cat_name as cname
           FROM jobs INNER JOIN categories
           ON jobs.category_id = categories.id 
           ORDER BY created_at DESC");
@@ -23,7 +23,7 @@ class Job {
         return $result;
     }
     public function getByCategory($category){
-        $this->db->query("SELECT jobs.*,categories.name as cname
+        $this->db->query("SELECT jobs.*,categories.cat_name as cname
         FROM jobs INNER JOIN categories
         ON jobs.category_id = categories.id 
         WHERE jobs.category_id = $category
