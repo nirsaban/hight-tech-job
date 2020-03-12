@@ -27,9 +27,14 @@
  <li class="list-group-item"><strong>Salary-</strong> <?= $job->salary;?></li>
  <li class="list-group-item"><strong>Contact Email-</strong> <?= $job->contact_email;?></li>
  </ul>
+ 
+ <?php if($_SESSION['role'] == 1): ?>
     <a href="edit.php?id=<?=$job->id?>" class="btn btn-warning">Edit</a>
     <a href="job.php?del_id=<?=$job->id?>" class="btn btn-danger">Delete</a>
-   
+ <?php elseif($_SESSION['role'] == 3):?>
+    <button  href="#"  onclick="addLike(<?=$_SESSION['id'] ?>,<?=$job->id?>,'students_messages')"  id="Like<?=$_SESSION['id']?>" class="btn btn-primary <?= $_SESSION['name']?> "><i class="far fa-thumbs-up"></i></button>
+    <?php endif; ?>
+
   </div>
 </div>
 

@@ -17,7 +17,7 @@
 <select class="form-control" name="category">
 <option value="0">Choose Category from List</option>
 <?php foreach($categories as $category):?>
-<option value= <?= $category->id?>><?= $category->name?></option>
+<option value= <?= $category->id?>><?= $category->cat_name?></option>
 <?php endforeach;?>
 </select>
 </div>
@@ -45,6 +45,7 @@
 <div class="form-group">
 <label for="">Email</label>
 <input type="email" class="form-control" name="email"><br>
+<input type="hidden" class="form-control" name="user_id" value=<?=$_SESSION['id']?>><br>
 <input type="submit" name="submit" class="btn btn-danger" value="ADD NEW JOB">
 </div>
 </form>

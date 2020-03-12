@@ -1,7 +1,7 @@
 window.onload = function init(){
-
+   
 let addSkill = document.getElementById('addSkill');
-addSkill.addEventListener('click',()=>{
+    addSkill.addEventListener('click',()=>{
     let parent = document.querySelector('.skills');
     let input = document.createElement('input')
     input.classList = 'form-control'
@@ -26,5 +26,54 @@ inputHidden.setAttribute("value", `${splitSkills}`);
 parent.appendChild(inputHidden);
 let addSkill = document.getElementById('addSkill');
 addSkill.remove();
+
+})
+let foo = document.querySelector('.foo');
+foo.addEventListener('click',()=>{
+    alert('test')
 })
 }
+function checklogin(){
+    if (confirm("to view more please login")) window.location = "login.php";
+}
+function addLike(id,job_id,table){
+    if(table.trim() == 'students_messages'){
+        if (confirm("You sure you Want this Job?")) {
+            // window.location = `department.php?id=${id}&job_id=${job_id}`;
+            axios({method:'get',url:`students.php?id=${id}&job_id=${job_id}&table=${table}`})
+            .then(({data})=>{
+                console.log(data)
+                 disabled(id,job_id)
+            });
+    } 
+    }else{
+        if (confirm("You sure you Want this Student?")) {
+            axios({method:'get',url:`students.php?id=${id}&job_id=${job_id}&table=${table.trim()}`})
+            .then(({data})=>{
+                console.log(data)
+                 disabled(id,job_id)
+            });
+    } 
+    }
+//     if (confirm("You sure you Want this student?")) {
+//         // window.location = `department.php?id=${id}&job_id=${job_id}`;
+//         axios({method:'get',url:`students.php?id=${id}&job_id=${job_id}`})
+//         .then(({data})=>{
+//             console.log(data)
+//              disabled(id,job_id)
+//         });
+// }
+        // window.location = `department.php?id=${id}&job_id=${job_id}`;
+        // disabled(id,job_id)
+      
+    }
+    function disabled(id,job_id){
+        let disabledBtn = `Like${id}`;
+        let like = document.getElementById(disabledBtn);
+        like.disabled = true;
+        like.style.color = 'red'
+        console.log(like) 
+    }
+    function sendError(data){
+       alert(`The message for  ${data.classList[2]}  has already been sent`)
+    }

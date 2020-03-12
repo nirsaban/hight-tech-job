@@ -52,7 +52,8 @@
                 </div>
                 <div class="col-md-2">
                       <a href="edit-profil.php?id=<?=$user->id?>"  class="profile-edit-btn" >Edit Profil</a>
-                    </div>
+                      <!-- <a href="edit-profil.php?id=<?=$user->id?>"  class="profile-edit-btn"  id="editPro" >Edit Profil</a> -->
+              </div>
                
               
         </div>

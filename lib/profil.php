@@ -4,6 +4,7 @@ class Profil{
 
     private $db;
     private $data;
+    public $row;
     public function __construct($prof){
         $this->db = new Database();
         $this->data = $prof;
@@ -30,10 +31,10 @@ class Profil{
     // if($image != $this->data['image']){
     //     $this->uploadImage();   
     // }
+    $id = $this->data['user_id'];
     $this->db->query("UPDATE profil set category_id = :category_id,image = :image,
      work_one = :work_one,work_two = :work_two,work_three = :work_three,my_skills =:my_skills,about_me = :about_me,
-     cv=:cv,education=:education WHERE id  = :id ");
-      $this->db->bind(':id',$this->data['user_id']);
+     cv=:cv,education=:education WHERE id  =  $id"); 
       $this->db->bind(':category_id',$this->data['category']); 
        $this->db->bind(':image',$this->data['image']); 
        $this->db->bind(':work_one',$this->data['work_one']);
@@ -43,7 +44,8 @@ class Profil{
        $this->db->bind(':about_me',$this->data['about_me']);
        $this->db->bind(':cv',$this->data['cv']);
        $this->db->bind(':education',$this->data['education']);
-      
+    //    $this->db->bind(':id',$this->data['user_id']);
+     
       if($this->db->execute()){
           return true;
       }else{
@@ -106,4 +108,5 @@ public function uploadImage(){
      $this->data['image'] = $_FILES['image']['name'];
   }
 }
+
 }

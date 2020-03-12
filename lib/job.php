@@ -4,6 +4,7 @@ class Job {
 
 
     private $db;
+   public $cat_id;
     public function __construct(){
         $this->db = new Database();
     }
@@ -48,7 +49,8 @@ class Job {
 
     }
     public function createNewJob($newJob){
-        $this->db->query("INSERT INTO jobs(category_id,company,job_title,description,salary,location,contact_user,contact_email)VALUES(:category_id,:company,:job_title,:description,:salary,:location,:contact_user,:contact_email)");
+        $this->db->query("INSERT INTO jobs(user_id,category_id,company,job_title,description,salary,location,contact_user,contact_email)VALUES(:user_id,:category_id,:company,:job_title,:description,:salary,:location,:contact_user,:contact_email)");
+        $this->db->bind(':user_id',$newJob['user_id']);
         $this->db->bind(':category_id',$newJob['category']);
         $this->db->bind(':company',$newJob['company']);
         $this->db->bind(':job_title',$newJob['job_title']);
@@ -89,6 +91,32 @@ class Job {
             return false;
         }
     }
+    public function getAllJobsByUserId($id){
+
+        $this->db->query("SELECT * from jobs where user_id = :id");
+        $this->db->bind(':id',(int)$id);
+        if($this->db->execute()){
+            $result = $this->db->resultSet();
+            return $result;
+        }
+    }
+    public function  getCatIdByJobId($id){
+        $this->db->query("SELECT category_id FROM jobs WHERE id = :id");
+        $this->db->bind(":id",$id);
+        $row = $this->db->single();
+        if($row){
+            return $row;
+        }
+    }
+    public function getUserCategory($id){
+        $this->db->query("select category_id from profil inner join users on users.id = profil.user_id 
+          where users.id = $id");
+         $row = $this->db->resultSet();
+         if($row){
+         return  $row;
+        }
+    }
+   
 }
 
 

@@ -62,4 +62,7 @@ public function single(){
     return $this->stmt->fetch(PDO::FETCH_OBJ);
 
 }
+public function rowCount(){
+    $this->stmt->rowCount();
+}
 }

@@ -1,17 +1,19 @@
-<?php include 'inc/header.php';?>
 <?php 
 if(isset($check)){
     echo "<pre>";
-    print_r($check);
+    print_r($check);die();
 }
 
 ?>
+<?php include 'inc/header.php';?>
+
 <div class="container emp-profile">
      <!-- <form action="profil.php" method="post">
       <input name="user_id"  type="hidden" value=<?= $user->id?>>
       <button type="submit" name="submit" value="My profil" class= "btn btn-warning color-dark"> Back  To My profil</button>
      </form> -->
             <form method="POST" action="edit-profil.php" enctype="multipart/form-data">
+            <input type="hidden" name="_method" value="PUT" />
             <input name="user_id"  type="hidden" value=<?= $user->id?>>
             <?= $user->id ?>
                 <div class="row">
@@ -56,7 +58,7 @@ if(isset($check)){
                     <div class="col-md-10">
 
                     </div>
-                    <input type="file" name="cv" value="<?= $myProfil->cv ?? ''  ?>">
+                    <input type="file" name="cv" value="<?= $myProfil->cv?>">
                     </div>
                             
                         </div>
@@ -87,13 +89,10 @@ if(isset($check)){
                         </div>
                     </div>
                     <div class="col-md-2">
-                  
-                   
-                       
                             <?php if(isset($myProfil->my_skills)):?>
-                             <input type = submit name="edit"  class="profile-edit-btn" value="Update Your Profil" >
+                             <input type ="submit" name="edit"  class="profile-edit-btn" value="Update Your Profil" >
                              <?php else:?>
-                            <input type = submit name="submit"  class="profile-edit-btn" value="Create Your Profil" >
+                            <input type = "submit" name="submit"  class="profile-edit-btn" value="Create Your Profil" >
                             <?php endif; ?>
                          </div>
 

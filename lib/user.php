@@ -131,7 +131,27 @@ class User{
         $this->row = $this->db->single();
         return $this->row;
     }
+    public function getAllStudent(){
+        $this->db->query("SELECT profil.image,categories.cat_name,users.name,users.id FROM profil 
+        INNER JOIN categories
+        ON profil.category_id = categories.id
+        JOIN users ON users.id = profil.user_id  ORDER BY users.name ASC");
+        $result = $this->db->resultSet();
+        return $result;
+    }
+    public function getStudentByCat($id){
+        $this->db->query("SELECT profil.image,profil.about_me,categories.cat_name,users.name,users.id FROM profil 
+        INNER JOIN categories
+        ON profil.category_id = categories.id
+        JOIN users ON users.id = profil.user_id WHERE  profil.category_id = $id ORDER BY users.name ASC");
+        $result = $this->db->resultSet();
+        return $result;
+    }
 }
+// "SELECT profil.*,categories.cat_name,users.name FROM profil 
+//         INNER JOIN categories
+//         ON profil.category_id = categories.id
+//           JOIN users ON users.id = profil.user_id 
 
 
 
