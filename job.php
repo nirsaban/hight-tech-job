@@ -5,6 +5,9 @@ include_once 'config/init.php';
 session_start();
 ?>
 <?php
+
+
+
 $job = new Job();
 if(isset($_GET['del_id'])){
 if($job->delete($_GET['del_id'])){

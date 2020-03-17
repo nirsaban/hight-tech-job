@@ -6,7 +6,7 @@ class Database{
     private $user = DB_USER;
     private $pass = DB_PASS;
     private $dbname = DB_NAME;
-    private $dbh;
+    public  $dbh;
     private $error;
     private $stmt;
     public function __construct(){
@@ -51,6 +51,9 @@ public function bind($param,$value,$type = null){
 }
 public function execute(){
     return $this->stmt->execute();
+}
+public function beginTransaction(){
+    return $this->stmt->beginTransaction();
 }
 public function resultSet(){
     $this->execute();

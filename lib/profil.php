@@ -10,16 +10,35 @@ class Profil{
         $this->data = $prof;
     }
     public function getProfil($id){
-        $this->db->query("SELECT profil.*,categories.cat_name,users.name FROM profil 
-        INNER JOIN categories
-        ON profil.category_id = categories.id
-          JOIN users ON users.id = profil.user_id 
-          WHERE profil.user_id = :user_id ");
-        $this->db->bind(':user_id',$id);
-        $row = $this->db->single();
-        return $row;
+        $this->db->query("SELECT profil.category_id from profil where user_id = $id");
+        $cat = $this->db->single();
+        if($cat->category_id == ''){
+          $this->db->query("SELECT profil.*,users.name FROM profil INNER JOIN users ON users.id = profil.user_id WHERE profil.user_id = :user_id ");
+          $this->db->bind(':user_id',$id);
+          $row = $this->db->single();
+          return $row;
+        }else{
+            $this->db->query("SELECT profil.*,categories.cat_name,users.name FROM profil 
+            INNER JOIN categories
+            ON profil.category_id = categories.id
+              JOIN users ON users.id = profil.user_id 
+              WHERE profil.user_id = :user_id ");
+            $this->db->bind(':user_id',$id);
+            $row = $this->db->single();
+            return $row;
+        }
+        
     }
-
+    public function checkCv($id){
+        $this->db->query("SELECT profil.cv from profil WHERE user_id = $id");
+        $row = $this->db->single();
+        if($row != null){
+            return $row;
+        }else{
+            $row = 'default.pdf';
+            return $row;
+        }
+    }
     public function updateProfil(){
         $this->uploadCv();
         $this->uploadImage();  
@@ -74,24 +93,13 @@ class Profil{
             return false;
         }
 }
-public function uploadCv(){
-        define('UPLOAD_MAX_SIZE', 1024 * 1024 * 20);
-        $ex = ['jpg', 'jpeg', 'png', 'gif', 'bpm', 'pdf', 'doc', 'docx'];
-        if (!empty($_FILES['cv']['name'])) {
-          if (is_uploaded_file($_FILES['cv']['tmp_name'])) {
-          if ($_FILES['cv']['size'] <= UPLOAD_MAX_SIZE && $_FILES['cv']['error'] == 0) {     
-                $file_info = pathinfo($_FILES['cv']['name']);
-                $file_ex = strtolower($file_info['extension']);        
-          if (in_array($file_ex, $ex)) {        
-                  move_uploaded_file($_FILES['cv']['tmp_name'], "cv/" . $_FILES['cv']['name']);
-                  $this->data['cv'] = $_FILES['cv']['name'];
-                  }
-              }
-          } 
-         $this->data['cv'] = $_FILES['cv']['name'];
-      }
-}
-public function uploadImage(){
+
+public function uploadImage($value,$id){
+    $dirname = "images_$id";
+     $filename = "$dirname/";
+     if (!file_exists($filename)) {
+       mkdir("images_$id");
+     }
     define('UPLOAD_MAX_SIZE', 1024 * 1024 * 20);
     $ex = ['jpg', 'jpeg', 'png', 'gif', 'bpm', 'pdf', 'doc', 'docx'];
     if (!empty($_FILES['image']['name'])) {
@@ -100,7 +108,7 @@ public function uploadImage(){
             $file_info = pathinfo($_FILES['image']['name']);
             $file_ex = strtolower($file_info['extension']);        
       if (in_array($file_ex, $ex)) {        
-              move_uploaded_file($_FILES['image']['tmp_name'], "images/" . $_FILES['image']['name']);
+              move_uploaded_file($_FILES['image']['tmp_name'], "images_$id/" . $_FILES['image']['name']);
               $this->data['image'] = $_FILES['image']['name'];
               }
           }
@@ -108,5 +116,66 @@ public function uploadImage(){
      $this->data['image'] = $_FILES['image']['name'];
   }
 }
-
+public function insertItem($item,$id,$value){
+ 
+   if($item == 'cv'){
+    $this->uploadCv($value,$id); 
+    }elseif($item == 'image'){
+        $this->uploadImage($value,$id); 
+    }
+    $this->db->query("SELECT profil.id from profil WHERE user_id = $id");
+    $checkId = $this->db->single();
+    if($checkId->id == ''){
+        $this->db->query("INSERT INTO profil(user_id,$item)values(:user_id,:value)");
+        $this->db->bind(':user_id',$id);
+        $this->db->bind(':value',$value);
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        $this->db->query("SELECT profil.$item from profil WHERE user_id = $id");
+        $row = $this->db->single();
+        if($row->$item ==''){
+         $this->db->query("UPDATE profil set `$item` = '$value' WHERE user_id = $id");
+         $row = $this->db->execute();
+         if($this->db->execute()){
+            return true;
+            }else{
+            return false;
+         }
+        }else{
+            $this->db->query("UPDATE  profil set `$item` = '$value' WHERE user_id = $id");
+                if($this->db->execute()){
+                    return true;
+                }else{
+                    return false;
+                }
+        }    
+}
+}
+public function uploadCv($value,$id){
+    $dirname = "cv_$id";
+     $filename = "$dirname/";
+     if (!file_exists($filename)) {
+       mkdir("cv_$id");
+     }
+     define('UPLOAD_MAX_SIZE', 1024 * 1024 * 20);
+     $ex = ['jpg', 'jpeg', 'png', 'gif', 'bpm', 'pdf', 'doc', 'docx'];
+     if (!empty($_FILES['cv']['name'])) {
+      if (is_uploaded_file($_FILES['cv']['tmp_name'])) {
+      if ($_FILES['cv']['size'] <= UPLOAD_MAX_SIZE && $_FILES['cv']['error'] == 0) {     
+            $file_info = pathinfo($_FILES['cv']['name']);
+            $file_ex = strtolower($file_info['extension']);        
+      if (in_array($file_ex, $ex)) {        
+              move_uploaded_file($_FILES['cv']['tmp_name'], "cv_$id/". $_FILES['cv']['name']);
+            //   $this->data['value'] = $_FILES['cv']['name'];
+              }
+          }
+      } 
+     
+  
+  }
+}
 }

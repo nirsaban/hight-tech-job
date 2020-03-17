@@ -7,7 +7,7 @@
    A marker I liked and the placement department would contact us </h5>
 <?php foreach($studentByCat as $student):?>
 <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src=images/<?=$student->image ??'avatar.jpg'?> alt="Card image cap">
+  <img class="card-img-top" src="images_<?=$student->id?>/<?=$student->image ??'avatar.jpg'?>" alt="Card image cap">
     <div class="card-body">
     <h5 class="card-title"><?=$student->name ?></h5>
     <p class="card-text"><?= $student->about_me?></p>

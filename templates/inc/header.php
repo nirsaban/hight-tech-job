@@ -1,4 +1,8 @@
+<?php
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +13,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://smtpjs.com/v3/smtp.js"></script>  
     <link rel="stylesheet" href="http://bootswatch.com/flatly/bootstrap.min.css">
     <link href="/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -135,7 +140,36 @@ span.tags
     padding: 2px 4px;
     }
 
+    .dark_window{
 
+    position: fixed;
+    width:100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    z-index:10000;
+    /* text-align: center; */
+  
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    display: none;
+  }
+  
+  .dark_box{
+    
+    max-width: 400px;
+    width: 100%;
+    background-color: white;
+    min-height: 100px;
+    border:skyblue 2px solid;
+  }
+  
+  .dark_box img{
+    width:35%;
+    float:left;
+    margin-right:8px;
+  }
+  
     </style>
    
 </head>
@@ -154,7 +188,7 @@ span.tags
       <?php if(isset($_SESSION['name'])):?>
       <li class="nav-item active"> <a class="nav-link" href="logout.php">logout</a></li>
        <?php endif;?>
-       <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 1):?> 
+       <?php if(isset($role) && $role == 1 || $role == 2):?> 
         <li class="nav-item active"><a class="nav-link" href="create.php">Create Listing</a></li>
         <li class="nav-item active"><a class="nav-link" href="students.php?all_students">See all students</a></li>
         <?php endif;?>
@@ -162,13 +196,25 @@ span.tags
       <li class="nav-item active"><a class="nav-link" href="login.php">login</a></li>
       <li class="nav-item active"> <a class="nav-link" href="signup.php">signup</a></li>
       <?php endif;?>
-      <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 3):?> 
+      <?php if(isset($role) && $role == 3):?> 
       <li class="nav-item active">
-      <form action="profil.php" method="post">
-      <input name="user_id"  type="hidden" value=<?= $_SESSION['id']?>>
-        <button type="submit" name="submit" value="My profil" class= "btn btn-outline color-light">My profil</button>
-      </form>
+
+      <li class="nav-item active"> <a class="nav-link" href="profil.php?id=<?= $_SESSION['id']?>">My profil</a></li>
+  
       </li>  <?php endif;?>
+      <!-- <?php if(isset($role) && $role == 2):?> 
+      <li class="nav-item active"> <a class="nav-link" href="index.php?all_jobs">List all Jobs</a></li>
+      <?php endif;?> -->
+      <?php if(isset($role) && $role == 3):?>
+      <li class="nav-item active float-lg-right">
+        <a class="nav-link " onclick="getMessage('<?=$_SESSION['id']?>','messages_from_department_to_student')" href="#"><i class="far fa-comments"><input type="hidden" class="countMessages" value="<?=$_SESSION['id']?>"></i><span class="count"></span></a>
+      </li> 
+      <?php endif; ?>
+      <?php if(isset($role) && $role == 1):?>
+      <li class="nav-item active float-lg-right">
+        <a class="nav-link " onclick="getMessage('<?=$_SESSION['id']?>','messages_from_department_to_employers')" href="#"><i class="far fa-comments"><input type="hidden" class="countMessagesEm" value="<?=$_SESSION['id']?>"></i><span class="countEm"></span></a>
+      </li> 
+      <?php endif; ?>
       </ul>
     
   </div>
@@ -178,6 +224,13 @@ span.tags
 <?php displayMessage();?>
 </div>
 <?php endif?>
+<div class="dark_window">
+    <div class="dark_box" id="dark_box">
+      <p id="id_h2_dark">Your messages</p>
+      
+      <button onclick="close()" id="close_btn_dark" class="btn btn-danger">close</button>
+    </div>
+  </div>
 
     
   

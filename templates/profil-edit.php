@@ -13,7 +13,6 @@ if(isset($check)){
       <button type="submit" name="submit" value="My profil" class= "btn btn-warning color-dark"> Back  To My profil</button>
      </form> -->
             <form method="POST" action="edit-profil.php" enctype="multipart/form-data">
-            <input type="hidden" name="_method" value="PUT" />
             <input name="user_id"  type="hidden" value=<?= $user->id?>>
             <?= $user->id ?>
                 <div class="row">

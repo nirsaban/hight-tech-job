@@ -16,7 +16,7 @@
       <tr>
         <td><?= $student->name;?></td>
         <td><?= $student->cat_name; ?></td>
-        <td><a href="profil.php?id=<?=$student->id?>"><img src=images/<?=$student->image??'avatar.jpg'?> width="50px" height="60px" alt=""/></a></td>
+        <td><a href="profil.php?id=<?=$student->id?>"><img src="images_<?=$student->id?>/<?=$student->image?>" width="50px" height="60px" alt=""/></a></td>
       </tr>
       <?php endforeach?>
     </tbody>

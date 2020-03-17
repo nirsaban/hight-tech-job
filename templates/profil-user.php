@@ -2,60 +2,113 @@
 
 <div class="container emp-profile">
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="profile-img">
-                            <img src=images/<?=$myProfil->image??'avatar.jpg'?> alt=""/>
-                            <div class="file btn btn-lg btn-primary">
-                                Change Photo
-                                <input type="file" name="file"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="profile-head">
-                                    <h5>
-                                       <?= $myProfil->name ?? $user->name; ?>
-                                    </h5>
-                                    <h6>
-                                       <?= $myProfil->cat_name ?? 'Your specialty'?>
-                                    </h6>
-                                    <div class="col-xs-12 col-sm-8">
-                                        <?php $def = 'default.pdf' ?>
-                                    <iframe  src='cv/<?= $myProfil->cv ?? $def?>' width='500px' style='height:350px'></iframe>
-                   
-                    <p><strong>About: </strong> <?=$myProfil->about_me ?? 'About Your Self';?></p>
-                    <p><strong>Education </strong><?= $myProfil->education ?? 'Your Education';?> </p>
-                    <p><strong>Skills: </strong>
-                    <?php if(isset($myProfil->my_skills)):?>
-                        <?php $skills = explode(' ',$myProfil->my_skills); ?>
-                           <?php foreach($skills as $skill): ?>
-                            <span class="tags"><?= $skill ?? 'Your skills'; ?></span>
-                           <?php endforeach; ?>
-                      </div> 
-                    <?php else:?>
-                      <span class="tags">Your skills</span>
-                      <?php endif; ?>
-                        </div>
-                    </div>
-                    <div class="row col-md-12">
-                    <div class="col-md-12">
-                    <div class="profile-work">
-                            <p>WORK LINK</p>
-                            <a class="text-primary col-md-4"  href="<?=$myProfil->work_one ?? '#'?>"><?=$myProfil->work_one ?? 'You First project';?></a><br/>
-                            <a class="text-primary col-md-4" href="<?=$myProfil->work_two?>"><?=$myProfil->work_two ?? 'You second project'; ?></a><br/>
-                            <a class="text-primary col-md-4" href="<?=$myProfil->work_three?>"><?=$myProfil->work_three ?? 'You third project';?></a><br/>
-                        </div>
-                    </div>
-                    </div>
-                    
-                </div>
-                <div class="col-md-2">
-                      <a href="edit-profil.php?id=<?=$user->id?>"  class="profile-edit-btn" >Edit Profil</a>
-                      <!-- <a href="edit-profil.php?id=<?=$user->id?>"  class="profile-edit-btn"  id="editPro" >Edit Profil</a> -->
+    <div class="row">
+        <!-- image area -->
+           
+            <?php $image = "images_$user->id" ?>  
+             <div class="col-md-4">
+             <div class="profile-img">
+            <?php if(isset($myProfil->image)):?>
+             <img src= "<?=$image ?>/<?=$myProfil->image?>">
+            <?php else:?>
+            <img src= "images/avatar.jpg">
+             <?php endif;?>
+            
+             <?php if($_SESSION['role'] == 3): ?>
+             <form action="edit-profil.php" method="POST" enctype="multipart/form-data">
+              <div class="file btn btn-sm btn-primary">
+                Change Photo 
+                <input type="file"   name="image" >
+                </div></br>
+               <input type="hidden" name="id" value=<?=$user->id?>></br>
+               <div class="file btn btn-sm btn-primary">
+               Add
+               <input type="submit" class="btn btn-success col-md-8" value="Add Photo" name="submit">
+             
+              </form>
               </div>
-               
-              
-        </div>
       
-        <?php include 'inc/footer.php';?>
+             <?php endif;?>
+              
+                </div>
+             </div>
+        <div class="col-md-8">
+            <div class="profile-head">
+            <h5><?=  $user->name; ?></h5>
+          <h4 >
+          <?php if($_SESSION['role'] == 3): ?>
+            <i class="fas fa-edit" data-col="category_id" onclick="edit(this.dataset)" id="edit"></i><i data-id="<?=$user->id?>" data-col ="category_id" class=" fas fa-check-square" onclick= "update(this.dataset)" id="update"></i>
+             <?php endif;?>
+             <?php if(isset($myProfil->cat_name)):?>
+             <?= $myProfil->cat_name ?? 'Your category'?>  
+             <select class="form-control cat" name="category" style="display:none" id="profil_cat"  >
+              <option value="0">Choose Category from List</option>
+              <?php foreach($categories as $category):?>
+               <option value="<?= $category->id?>" <?php if(isset($myProfil->category_id) && $myProfil->category_id == $category->id ):?> selected <?php endif;?>><?= $category->cat_name?></option>
+              <?php endforeach;?>
+              </select>
+                <?php endif;?>
+            </h4>
+            <div class="col-xs-12 col-sm-8">
+              <div id="about">
+              <i data-col="about_me" class="fas fa-edit"  onclick="edit(this.dataset)"   id="editAbout"></i><i data-id="<?=$user->id?>" data-col ="about_me" class=" fas fa-check-square updateAbout" onclick= "update(this.dataset)" ></i>
+              <strong>About: </strong> <p class="aboutMe"> <?=$myProfil->about_me ?? 'About Your Self';?></p>
+              </div>
+              <div class="education">
+              <?php if($_SESSION['role'] == 3): ?> 
+              <i data-col="education" class="fas fa-edit"  onclick="edit(this.dataset)"   id="editEd"></i><i data-id="<?=$user->id?>" data-col ="education" class=" fas fa-check-square updateEd" onclick= "update(this.dataset)"></i>
+              <?php endif;?>
+              <strong>Education:</strong>
+
+              <?php if(isset($myProfil->education)):?>
+              <ul class="list-group list-group-flush">
+              <?php $arrEd =  json_decode($myProfil->education)?>
+              <?php foreach($arrEd as $item): ?>
+                   <li class="list-group-item"><?=$item ;?></li>
+              <?php endforeach;?>
+               </ul>
+              <?php endif;?>
+              </div>
+              <div class="Skills">
+              <?php if($_SESSION['role'] == 3): ?> 
+              <i data-col="my_skills" class="fas fa-edit"  onclick="edit(this.dataset)"   id="editSk"></i><i data-id="<?=$user->id?>" data-col ="my_skills" class=" fas fa-check-square updateSk" onclick="update(this.dataset)"></i>
+              <?php endif;?>
+              <strong>Skills:</strong>
+                <?php if(isset($myProfil->my_skills)):?>
+                <?php $arrSk =  json_decode($myProfil->my_skills)?>
+                <?php foreach($arrSk as $skill): ?>
+                    <span class="tags"><?= $skill ;?></span>
+                <?php endforeach;?>
+                <?php endif;?>
+                </div>
+                <div class="links">
+                 <?php if($_SESSION['role'] == 3): ?> 
+                 <i data-col="links" class="fas fa-edit"  onclick="edit(this.dataset)"   id="editLi"></i><i data-id="<?=$user->id?>" data-col ="links" class=" fas fa-check-square updateLi" onclick="update(this.dataset)"></i>
+                 <?php endif;?>
+                <strong>WORK LINK</strong> <small>Max 3 links</small></br>
+                <?php if(isset($myProfil->links)):?>
+                <?php $arrLi =  json_decode($myProfil->links)?>
+                <?php foreach($arrLi as $link): ?>
+                    <a class="text-primary col-md-4"  href="<?= $link ?? '#'?>"><?=$link; ?></a><br/>
+                <?php endforeach;?>
+                <?php endif;?>
+            
+             </div>
+          
+        
+                <!-- ///cv area -->
+              <?php $def = 'default.pdf' ?>
+              <?php $cv = "cv_$user->id" ?>  
+              <?php if(isset($myProfil->cv)):?>
+              <iframe  src= "<?=$cv?>/<?= $myProfil->cv?>" width='250px' style='height:180px'></iframe>
+              <?php else:?>
+             <iframe  src="cv/default.pdf" width='250px' style='height:180px'></iframe>
+             <?php endif;?>
+               <?php if($_SESSION['role'] == 3): ?> 
+               <form action="edit-profil.php" method="POST" enctype="multipart/form-data">
+               <input type="file"   name="cv" >
+               <input type="hidden" name="id" value=<?=$user->id?>>
+               <input type="submit" class="btn btn-success col-md-8" value="Add cv" name="submit">
+              </form>
+              <?php endif;?>
+   <?php include 'inc/footer.php';?>

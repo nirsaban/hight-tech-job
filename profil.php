@@ -1,19 +1,22 @@
 
 <?php 
-//include the system that load the classes
+
 include_once 'config/init.php';
+session_start();
 ?>
 <?php
-$profil = new Profil('foo');
+
 
 $template = new Template('templates/profil-user.php');
-
-
-if(isset($_POST['submit'])||isset($_GET['id'])){
-    $id = $_POST['user_id'] ?? $_GET['id'];
-    $template->myProfil = $profil->getProfil($id);
+if(isset($_GET['id'])){
+    $id =  $_GET['id'];
+    $profil = new Profil('foo');
     $user = new User($id);
+    $job = new Job();
+    $template->myProfil = $profil->getProfil($id);
     $template->user = $user->getUser();
+    $template->categories = $job->getCategories();
+    $template->def = 'default.pdf';
 }
 
 echo $template;
