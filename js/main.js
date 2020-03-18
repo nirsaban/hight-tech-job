@@ -1,7 +1,5 @@
 window.onload = function init(){
-    function editAbout(){
-        alert('foo')
-    }
+    
     let check = document.querySelector('.countMessages');
     if(check != null){
     let countId = document.querySelector('.countMessages').value;
@@ -27,34 +25,7 @@ window.onload = function init(){
 }
 
   
-let addSkill = document.getElementById('addSkill');
-    addSkill.addEventListener('click',()=>{
-    let parent = document.querySelector('.skills');
-    let input = document.createElement('input')
-    input.classList = 'form-control'
-    input.setAttribute("type", "text");
-    input.setAttribute("class", "skill-data");
-    parent.appendChild(input)
-})
-let addSkills = document.getElementById('addSkills');
-addSkills.addEventListener('click',()=>{
-const arrSkills = [];
-let skills = document.querySelectorAll('.skill-data').forEach((skill)=>{
-    arrSkills.push(skill.value);
-});
-// console.log(arrSkills)
- let toString = arrSkills.toString();
-let splitSkills = toString.replace(/,/g,' ');
-let parent = document.querySelector('.skills');
-let inputHidden = document.createElement('input');
-inputHidden.setAttribute("type", "hidden");
-inputHidden.setAttribute("name", "skills");
-inputHidden.setAttribute("value", `${splitSkills}`);
-parent.appendChild(inputHidden);
-let addSkill = document.getElementById('addSkill');
-addSkill.remove();
 
-})
 let foo = document.querySelector('.foo');
 foo.addEventListener('click',()=>{
     alert('test')
@@ -84,16 +55,6 @@ function addLike(id,job_id,table){
             });
     } 
     }
-//     if (confirm("You sure you Want this student?")) {
-//         // window.location = `department.php?id=${id}&job_id=${job_id}`;
-//         axios({method:'get',url:`students.php?id=${id}&job_id=${job_id}`})
-//         .then(({data})=>{
-//             console.log(data)
-//              disabled(id,job_id)
-//         });
-// }
-        // window.location = `department.php?id=${id}&job_id=${job_id}`;
-        // disabled(id,job_id)
       
     }
     function disabled(id,job_id){
