@@ -26,10 +26,7 @@ window.onload = function init(){
 
   
 
-let foo = document.querySelector('.foo');
-foo.addEventListener('click',()=>{
-    alert('test')
-})
+
 }
 function checklogin(){
     if (confirm("to view more please login")) window.location = "login.php";

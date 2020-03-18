@@ -2,9 +2,7 @@
 height: 150px;
 width: 150px;
 } */
-body{
-    color: red;
-}
+
 #rotate-scale-up-diag-1{
  
 	-webkit-animation: rotate-scale-up-diag-1 0.7s linear both;
