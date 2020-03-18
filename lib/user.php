@@ -140,7 +140,7 @@ class User{
         return $result;
     }
     public function getStudentByCat($id){
-        $this->db->query("SELECT profil.image,profil.about_me,categories.cat_name,users.name,users.id FROM profil 
+        $this->db->query("SELECT profil.category_id,profil.image,profil.about_me,categories.cat_name,users.name,users.id FROM profil 
         INNER JOIN categories
         ON profil.category_id = categories.id
         JOIN users ON users.id = profil.user_id WHERE  profil.category_id = $id ORDER BY users.name ASC");

@@ -1,10 +1,19 @@
 <?php include 'inc/header.php';
 
 ?>
+
+  
+  
+
 <div class="container">
 <div class="row" style="margin-top:10rem">
+<?php if(count($studentByCat) > 0):?>
+
+
+
 <h5 class="">Do you think I fit into this job?
    A marker I liked and the placement department would contact us </h5>
+
 <?php foreach($studentByCat as $student):?>
 <div class="card" style="width: 18rem;">
   <img class="card-img-top" src="images_<?=$student->id?>/<?=$student->image ??'avatar.jpg'?>" alt="Card image cap">
@@ -20,9 +29,11 @@
 </div>
 </div>
 
-<?php endforeach;
-?>
-</div>
-</div>
+<?php endforeach;?>
 
+</div>
+</div>
+<?php else:?>
+  <h3>Sorry there are no students in the category you selected</h3>
+<?php endif;?>
 <?php include 'inc/footer.php'; ?>

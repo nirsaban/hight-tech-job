@@ -94,10 +94,7 @@ function addLike(id,job_id,table){
     
     function getMessage(id,table){
         axios({method:'get',url:`count.php?getMsg=${id}&from=${table.trim()}`})
-        .then(({data})=>{
-        console.log(data)
-       
-         
+        .then(({data})=>{      
             $(".dark_window").fadeIn(500);
            $(".dark_window").css("display", "flex");
              for(i = 0; i < data.length; i++){

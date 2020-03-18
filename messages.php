@@ -11,7 +11,7 @@ include_once 'config/init.php';?>
     $array['user_id'] = (int)$msg->user_id;
     $array['id'] = (int)$msg->id;
     $finito =  $hackerU->replayMessage($array);
-    echo $finito."<br>";
+    echo $finito;
     $template = new Template('templates/frontpage.php');
    
 
