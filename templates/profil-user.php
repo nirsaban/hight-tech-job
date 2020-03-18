@@ -1,5 +1,6 @@
 <?php include 'inc/header.php';?>
-
+ <?php if($_SESSION['id'] == $user->id || $_SESSION['role'] == 1):?>
+   
 <div class="container emp-profile">
 
     <div class="row">
@@ -115,4 +116,9 @@
                <input type="submit" class="btn btn-success col-md-8" value="Add cv" name="submit">
               </form>
               <?php endif;?>
+
    <?php include 'inc/footer.php';?>
+               <?php else:?>
+
+   <?php header('Location:login.php');?>
+   <?php endif;?>

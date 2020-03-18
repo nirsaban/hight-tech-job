@@ -6,19 +6,17 @@ session_start();
 ?>
 <?php
 
-    $template = new Template('templates/profil-user.php');
-    if(isset($_GET['id'])){
-        $id =  $_GET['id'];
-        $profil = new Profil('foo');
-        $user = new User($id);
-        $job = new Job();
-    if($_SESSION['id'] == $user->id || $_SESSION['role'] == 1){
-        $template->myProfil = $profil->getProfil($id);
-        $template->user = $user->getUser();
-        $template->categories = $job->getCategories();
-        $template->def = 'default.pdf';
-    }else{
-        header('Location:login.php');
-    }    
-    }
+
+$template = new Template('templates/profil-user.php');
+if(isset($_GET['id'])){
+    $id =  $_GET['id'];
+    $profil = new Profil('foo');
+    $user = new User($id);
+    $job = new Job();
+    $template->myProfil = $profil->getProfil($id);
+    $template->user = $user->getUser();
+    $template->categories = $job->getCategories();
+    $template->def = 'default.pdf';
+}
+
 echo $template;
