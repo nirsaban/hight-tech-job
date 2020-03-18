@@ -74,7 +74,7 @@
                </ul>
               <?php endif;?>
               </div>
-              <div class="Skills">
+              <div class="skills">
               <?php if($_SESSION['id'] == $user->id): ?> 
               <i data-col="my_skills" class="fas fa-edit"  onclick="edit(this.dataset)"   id="editSk"></i><i data-id="<?=$user->id?>" data-col ="my_skills" class=" fas fa-check-square updateSk" onclick="update(this.dataset)"></i>
               <?php endif;?>
