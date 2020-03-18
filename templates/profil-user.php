@@ -53,7 +53,9 @@
             </h4>
             <div class="col-xs-12 col-sm-8">
               <div id="about">
+              <?php if($_SESSION['id'] == $user->id): ?> 
               <i data-col="about_me" class="fas fa-edit"  onclick="edit(this.dataset)"   id="editAbout"></i><i data-id="<?=$user->id?>" data-col ="about_me" class=" fas fa-check-square updateAbout" onclick= "update(this.dataset)" ></i>
+              <?php endif;?>
               <strong>About: </strong> <p class="aboutMe"> <?=$myProfil->about_me ?? 'About Your Self';?></p>
               </div>
               <div class="education">
