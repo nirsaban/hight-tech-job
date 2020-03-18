@@ -39,15 +39,17 @@
           <?php if($_SESSION['id'] == $user->id): ?>
             <i class="fas fa-edit" data-col="category_id" onclick="edit(this.dataset)" id="edit"></i><i data-id="<?=$user->id?>" data-col ="category_id" class=" fas fa-check-square" onclick= "update(this.dataset)" id="update"></i>
              <?php endif;?>
+            Category
              <?php if(isset($myProfil->cat_name)):?>
-             <?= $myProfil->cat_name ?? 'Your category'?>  
+             <?= $myProfil->cat_name ?? 'Your category'?> 
+             <?php endif;?> 
              <select class="form-control cat" name="category" style="display:none" id="profil_cat"  >
               <option value="0">Choose Category from List</option>
               <?php foreach($categories as $category):?>
                <option value="<?= $category->id?>" <?php if(isset($myProfil->category_id) && $myProfil->category_id == $category->id ):?> selected <?php endif;?>><?= $category->cat_name?></option>
               <?php endforeach;?>
               </select>
-                <?php endif;?>
+               
             </h4>
             <div class="col-xs-12 col-sm-8">
               <div id="about">
