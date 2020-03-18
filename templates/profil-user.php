@@ -96,7 +96,7 @@
              </div>
           
         
-                <!-- ///cv area -->
+                <!-- ///cv aread -->
               <?php $def = 'default.pdf' ?>
               <?php $cv = "cv_$user->id" ?>  
               <?php if(isset($myProfil->cv)):?>
