@@ -14,7 +14,7 @@
             <img src= "images/avatar.jpg">
              <?php endif;?>
             
-             <?php if($_SESSION['role'] == 3): ?>
+             <?php if($_SESSION['id'] == $user->id): ?>
              <form action="edit-profil.php" method="POST" enctype="multipart/form-data">
               <div class="file btn btn-sm btn-primary">
                 Change Photo 
@@ -36,7 +36,7 @@
             <div class="profile-head">
             <h5><?=  $user->name; ?></h5>
           <h4 >
-          <?php if($_SESSION['role'] == 3): ?>
+          <?php if($_SESSION['id'] == $user->id): ?>
             <i class="fas fa-edit" data-col="category_id" onclick="edit(this.dataset)" id="edit"></i><i data-id="<?=$user->id?>" data-col ="category_id" class=" fas fa-check-square" onclick= "update(this.dataset)" id="update"></i>
              <?php endif;?>
              <?php if(isset($myProfil->cat_name)):?>
@@ -55,7 +55,7 @@
               <strong>About: </strong> <p class="aboutMe"> <?=$myProfil->about_me ?? 'About Your Self';?></p>
               </div>
               <div class="education">
-              <?php if($_SESSION['role'] == 3): ?> 
+              <?php if($_SESSION['id'] == $user->id): ?> 
               <i data-col="education" class="fas fa-edit"  onclick="edit(this.dataset)"   id="editEd"></i><i data-id="<?=$user->id?>" data-col ="education" class=" fas fa-check-square updateEd" onclick= "update(this.dataset)"></i>
               <?php endif;?>
               <strong>Education:</strong>
@@ -70,7 +70,7 @@
               <?php endif;?>
               </div>
               <div class="Skills">
-              <?php if($_SESSION['role'] == 3): ?> 
+              <?php if($_SESSION['id'] == $user->id): ?> 
               <i data-col="my_skills" class="fas fa-edit"  onclick="edit(this.dataset)"   id="editSk"></i><i data-id="<?=$user->id?>" data-col ="my_skills" class=" fas fa-check-square updateSk" onclick="update(this.dataset)"></i>
               <?php endif;?>
               <strong>Skills:</strong>
@@ -82,7 +82,7 @@
                 <?php endif;?>
                 </div>
                 <div class="links">
-                 <?php if($_SESSION['role'] == 3): ?> 
+                 <?php if($_SESSION['id'] == $user->id): ?> 
                  <i data-col="links" class="fas fa-edit"  onclick="edit(this.dataset)"   id="editLi"></i><i data-id="<?=$user->id?>" data-col ="links" class=" fas fa-check-square updateLi" onclick="update(this.dataset)"></i>
                  <?php endif;?>
                 <strong>WORK LINK</strong> <small>Max 3 links</small></br>
@@ -104,7 +104,7 @@
               <?php else:?>
              <iframe  src="cv/default.pdf" width='250px' style='height:180px'></iframe>
              <?php endif;?>
-               <?php if($_SESSION['role'] == 3): ?> 
+               <?php if($_SESSION['id'] == $user->id): ?> 
                <form action="edit-profil.php" method="POST" enctype="multipart/form-data">
                <input type="file"   name="cv" >
                <input type="hidden" name="id" value=<?=$user->id?>>
