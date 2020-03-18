@@ -37,25 +37,3 @@ if(isset($_POST)){
     redirect("index.php");
     }
 }
-// if(isset($_POST['submit'])){
-//    $profil = new Profil($_POST);
-//     if($profil->editProfil()){
-//     redirect("profil.php?id=.$user->id.");
-//     }
-// }
-// if(isset($_POST['edit'])){
-//     $profil = new Profil($_POST);
-//     $user = new User($_POST['user_id']);
-//     $id = $user->getUser()->id;
-//     // $template->check = $_POST;
-//     if($profil->updateProfil()){
-//     redirect("profil.php?id= $id ");
-//     }
-// }
-
-// $msg =json_decode($test);
-// $array['txtJob'] = $msg->txtJob;
-// $array['txtStudent'] = $msg->txtStudent;
-// $array['user_id'] = (int)$msg->user_id;
-// $array['id'] = (int)$msg->id;
-// echo $template;
