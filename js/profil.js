@@ -7,7 +7,7 @@ class Profil{
     select.style.display = 'block';
     }else if(data['col'] == 'about_me'){
         $(editAbout).prop("onclick", null).off("click");
-        let parentAbout = document.getElementById('about')
+        let parentAbout = document.getElementById('aboutParent')
         let pAbout = document.querySelector('.aboutMe');
         let ValpAbout = pAbout.textContent;
         pAbout.style.display='none';
@@ -23,7 +23,7 @@ class Profil{
        
     }else if(data['col'] == 'education'){
         $(editEd).prop("onclick", null).off("click");
-        const parentEducation = document.querySelector('.education')
+        const parentEducation = document.querySelector('.educationParent')
         let plus = document.createElement('button');
         let plusAll = document.createElement('button')
         plus.innerText = '+ '
@@ -57,7 +57,7 @@ class Profil{
 
     }else if(data['col'] == 'my_skills'){
         $(editSk).prop("onclick", null).off("click");
-        const parentSkills = document.querySelector('.skills')
+        const parentSkills = document.querySelector('.skillsParent')
         let plus = document.createElement('button');
         let plusAll = document.createElement('button')
         plus.innerText = '+ '
@@ -90,7 +90,7 @@ class Profil{
      })  
     }else if(data['col'] == 'links'){
         $(editLi).prop("onclick", null).off("click");
-        const parentLinks = document.querySelector('.links')
+        const parentLinks = document.querySelector('.linksParent')
         let plus = document.createElement('button');
         let plusAll = document.createElement('button')
         plus.innerText = '+ '
@@ -152,10 +152,13 @@ class Profil{
                 item:item,
                 id:id,
                 value:value
-            }}).then(()=>{
+            }}).then(()=>{     
               location.reload();
              });
-        
+   }
+   color(item){
+    let itemCom = document.querySelector(`.${item}comp`);
+    itemCom.style.color ='red';
    }
 }
 //the global object from class

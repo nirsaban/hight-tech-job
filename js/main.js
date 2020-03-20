@@ -1,5 +1,22 @@
 window.onload = function init(){
+   console.log(PRESENT)
+  
+   function present(PRESENT){
+       let count = []
     
+    for (const [key, value] of Object.entries(PRESENT)) {
+        count.push(key)
+        let div = document.querySelector(`.${key}`);
+        let color = $(div).data("color");
+        $(div).css("background", color) 
+        div.style.transition = 'background 0.5s ease-in-out'
+       }  
+      let pre =  document.querySelector('.present').innerHTML = count.length* 14 + '% '   
+      pre.style.fontSize = " 2rem"
+   }
+   present(PRESENT)
+  
+   
     let check = document.querySelector('.countMessages');
     if(check != null){
     let countId = document.querySelector('.countMessages').value;
@@ -110,5 +127,12 @@ function addLike(id,job_id,table){
     }
  
      
-
+function getProfil(id){
+    axios({method:'post',url:'profil.php',
+    data:{
+        id:id
+    }}).then(()=>{
+      console.log('yes')
+     });
+}
  

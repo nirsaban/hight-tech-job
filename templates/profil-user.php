@@ -1,15 +1,17 @@
 <?php include 'inc/header.php';?>
  <?php if($_SESSION['id'] == $user->id || $_SESSION['role'] == 1):?>
    
+
 <div class="container emp-profile">
 
     <div class="row">
-        <!-- image area -->
+     
            
             <?php $image = "images_$user->id" ?>  
              <div class="col-md-4">
              <div class="profile-img">
             <?php if(isset($myProfil->image)):?>
+           
              <img src= "<?=$image ?>/<?=$myProfil->image?>">
             <?php else:?>
             <img src= "images/avatar.jpg">
@@ -53,13 +55,13 @@
                
             </h4>
             <div class="col-xs-12 col-sm-8">
-              <div id="about">
+              <div id="aboutParent">
               <?php if($_SESSION['id'] == $user->id): ?> 
               <i data-col="about_me" class="fas fa-edit"  onclick="edit(this.dataset)"   id="editAbout"></i><i data-id="<?=$user->id?>" data-col ="about_me" class=" fas fa-check-square updateAbout" onclick= "update(this.dataset)" ></i>
               <?php endif;?>
               <strong>About: </strong> <p class="aboutMe"> <?=$myProfil->about_me ?? 'About Your Self';?></p>
               </div>
-              <div class="education">
+              <div class="educationParent">
               <?php if($_SESSION['id'] == $user->id): ?> 
               <i data-col="education" class="fas fa-edit"  onclick="edit(this.dataset)"   id="editEd"></i><i data-id="<?=$user->id?>" data-col ="education" class=" fas fa-check-square updateEd" onclick= "update(this.dataset)"></i>
               <?php endif;?>
@@ -74,7 +76,7 @@
                </ul>
               <?php endif;?>
               </div>
-              <div class="skills">
+              <div class="skillsParent">
               <?php if($_SESSION['id'] == $user->id): ?> 
               <i data-col="my_skills" class="fas fa-edit"  onclick="edit(this.dataset)"   id="editSk"></i><i data-id="<?=$user->id?>" data-col ="my_skills" class=" fas fa-check-square updateSk" onclick="update(this.dataset)"></i>
               <?php endif;?>
@@ -86,7 +88,7 @@
                 <?php endforeach;?>
                 <?php endif;?>
                 </div>
-                <div class="links">
+                <div class="linksParent">
                  <?php if($_SESSION['id'] == $user->id): ?> 
                  <i data-col="links" class="fas fa-edit"  onclick="edit(this.dataset)"   id="editLi"></i><i data-id="<?=$user->id?>" data-col ="links" class=" fas fa-check-square updateLi" onclick="update(this.dataset)"></i>
                  <?php endif;?>
@@ -116,9 +118,23 @@
                <input type="submit" class="btn btn-success col-md-8" value="Add cv" name="submit">
               </form>
               <?php endif;?>
-
+               </div>
+   <div class="compliteProf">
+   <div data-color = "rgba(255, 0, 0, 0.2)" class="category_id item">Category</div>
+   <div data-color = "rgba(255, 0, 0, 0.4)" class="about_me item">about</div>
+   <div data-color = "rgba(255, 0, 0, 0.5)" class="education item">education</div>
+   <div data-color = "rgba(255, 0, 0, 0.6)" class="my_skills item">skills</div>
+   <div data-color = "rgba(255, 0, 0, 0.7);" class="links item">links</div>
+   <div data-color = "rgba(255, 0, 0, 0.8);" class="cv item">cv</div>
+   <div  data-color = "rgba(255, 0, 0, 0.9);" class="image item">image</div>
+   <div class="present item">present</div>
+   </div>
+  
+               <script>
+               const PRESENT =  <?php print_r($present) ;?>;
+               </script>
    <?php include 'inc/footer.php';?>
                <?php else:?>
-
+              
    <?php header('Location:login.php');?>
    <?php endif;?>

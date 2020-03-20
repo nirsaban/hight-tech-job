@@ -9,15 +9,55 @@ class Profil{
         $this->db = new Database();
         $this->data = $prof;
     }
-    public function getProfil($id){
-        $this->db->query("SELECT profil.category_id from profil where user_id = $id");
-        $cat = $this->db->single();
-        if($cat->category_id == ''){
-          $this->db->query("SELECT profil.*,users.name FROM profil INNER JOIN users ON users.id = profil.user_id WHERE profil.user_id = :user_id ");
-          $this->db->bind(':user_id',$id);
-          $row = $this->db->single();
-          return $row;
+    public function insertPresent($present,$id){
+        $this->db->query("UPDATE  profil set present = $present WHERE user_id = $id");
+        if($this->db->execute()){
+            $this->db->query("SELECT  present from profil WHERE user_id = $id");
+            $row = $this->db->single();
+            if($row){
+                return $row;
+            }
         }else{
+            return false;
+        }
+
+    }
+     public function getallNoNull($id){
+         $this->db->query("SELECT * from profil WHERE user_id = $id");
+        $row = $this->db->resultSet();
+        $rowD = (object)$row;
+        $arr = [];
+        foreach($rowD as $key => $notNull){
+            if($rowD -> $key =! null){
+                
+               $arr[$rowD -> $key] = $notNull;
+            }
+        }
+        return $arr;
+      
+    }
+    // public function getProfil($id){
+    //     $this->db->query("SELECT profil.category_id from profil where user_id = $id");
+    //     $cat = $this->db->single();
+        
+    //     if($cat->category_id == ''){
+    //       $this->db->query("SELECT profil.*,users.name FROM profil INNER JOIN users ON users.id = profil.user_id WHERE profil.user_id = :user_id ");
+    //       $this->db->bind(':user_id',$id);
+    //       $row = $this->db->single();
+    //       return $row;
+    //     }else{
+    //         $this->db->query("SELECT profil.*,categories.cat_name,users.name FROM profil 
+    //         INNER JOIN categories
+    //         ON profil.category_id = categories.id
+    //           JOIN users ON users.id = profil.user_id 
+    //           WHERE profil.user_id = :user_id ");
+    //         $this->db->bind(':user_id',$id);
+    //         $row = $this->db->single();
+    //         return $row;
+    //     }
+        
+    // }
+    public function getProfil($id){
             $this->db->query("SELECT profil.*,categories.cat_name,users.name FROM profil 
             INNER JOIN categories
             ON profil.category_id = categories.id
@@ -25,9 +65,23 @@ class Profil{
               WHERE profil.user_id = :user_id ");
             $this->db->bind(':user_id',$id);
             $row = $this->db->single();
-            return $row;
-        }
+           if($row){
+               return $row;
+           }else{
+               return false;
+           }
         
+        
+    }
+    public function getOnlyProfil($id){
+        $this->db->query("SELECT  `category_id`, `about_me`, `education`, `my_skills`, `links`, `cv`, `image` FROM `profil` WHERE user_id = :user_id");
+        $this->db->bind(':user_id',$id);
+        $row = $this->db->single();
+       if($row){
+           return $row;
+       }else{
+           return false;
+       }
     }
     public function checkCv($id){
         $this->db->query("SELECT profil.cv from profil WHERE user_id = $id");

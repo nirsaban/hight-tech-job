@@ -42,7 +42,7 @@
       <div class="col-md-10">
        <h6 class="text-muted"><?= $job->job_title; ?></h6>
        <p><?= $job->description ?> </p>
-    <p><a class="btn btn-secondary checkLogin" <?php if($id_session):?> href="job.php?id=<?=$job->id?>" <?php elseif(!$id_session):?> onclick="checklogin()"<?php elseif($noProf == true):?> onclick="goToprofil(<?= $id_session?>)" <?php endif;?> role="button">View details &raquo;</a></p>
+    <p><a class="btn btn-secondary checkLogin" <?php if($id_session && $noProf == false):?> href="job.php?id=<?=$job->id?>" <?php elseif(!$id_session):?> onclick="checklogin()"<?php elseif($noProf == true):?> onclick="goToprofil(<?= $id_session?>)" <?php endif;?> role="button">View details &raquo;</a></p>
       <?php if($role == 1):?>
       <p><a  href="students.php?cat_id=<?=$job->category_id?>&amp;job_id=<?=$job->id?>" class="btn btn-primary"  role="button">See the student from this category &raquo;</a></p>
       <?php endif;?>

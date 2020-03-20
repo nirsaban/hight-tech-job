@@ -191,8 +191,9 @@ span.tags
       <?php if(isset($role) && $role == 3):?> 
       <li class="nav-item active">
 
-      <li class="nav-item active"> <a class="nav-link" href="profil.php?id=<?= $_SESSION['id']?>">My profil</a></li>
-  
+      <!-- <li class="nav-item active"> <a class="nav-link" onclick="getProfil(<?= $_SESSION['id']?>)" href="#">My profil</a></li> -->
+        <li class="nav-item active"> <a class="nav-link"  href="profil.php?id=<?=$_SESSION['id']?>">My profil</a></li>
+
       </li>  <?php endif;?>
       <!-- <?php if(isset($role) && $role == 2):?> 
       <li class="nav-item active"> <a class="nav-link" href="index.php?all_jobs">List all Jobs</a></li>

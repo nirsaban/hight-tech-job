@@ -1,8 +1,22 @@
-/* #inputAbout{
-height: 150px;
-width: 150px;
-} */
-
+*{
+  box-sizing: border-box;
+}
+.compliteProf{
+  display: flex;
+  width: 9rem; 
+ 
+}
+.compliteProf > .item{
+  padding: 1rem;
+  color:black;
+  font-weight: bold;
+  border: 1px solid black;
+  border-radius:5px ;
+}
+.present{
+  font-size: 1rem;
+  background-color: rgb(252, 229, 26);
+}
 #rotate-scale-up-diag-1{
  
 	-webkit-animation: rotate-scale-up-diag-1 0.7s linear both;
