@@ -16,7 +16,14 @@
       <tr>
         <td><?= $student->name;?></td>
         <td><?= $student->cat_name; ?></td>
-        <td><a href="profil.php?id=<?=$student->id?>"><img src="images_<?=$student->id?>/<?=$student->image?>" width="50px" height="60px" alt=""/></a></td>
+        <?php $image = "images_$student->id"; ?>  
+        <?php if(isset($student->image)):?>
+          <td><a href="profil.php?id=<?=$student->id;?>">
+           <img src="<?=$image;?>/<?=$student->image?>" height="42" width="42">
+          <?php else:?>
+           <img src= "images/avatar.jpg">
+           <?php endif;?>
+           </a></td>
       </tr>
       <?php endforeach?>
     </tbody>

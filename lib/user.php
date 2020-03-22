@@ -6,7 +6,7 @@ class User{
     private $dataLogin;
     public $row;
     public $errors = [];
-    private static $filds = ['name','email','password','password_confirm'];
+    private static $filds = ['name','email','password','password_confirm','role'];
     public function __construct($data){
        
         $this->db = new Database();
@@ -24,7 +24,7 @@ class User{
         $this->validateUsername();
         $this->validateEmail();
         $this->validatePassword();
-        // $this->validateCv();
+        $this->validateRole();
         if(empty($this->errors)){
             return true;
         }else{
@@ -92,7 +92,12 @@ class User{
               $this->data['cv'] = $_FILES['cv']['name'];
           }
     }
-    
+    public function validateRole(){
+        $val = (integer)$this->data['role'];
+        if($val == 0){
+            $this->addError('role','You mast choose your role');
+        }
+    }
     public function createNewUser(){
         
         $this->db->query("INSERT INTO users(name,email,password,role)VALUES(:name,:email,:password,:role)");
@@ -147,6 +152,14 @@ class User{
         $result = $this->db->resultSet();
         return $result;
     }
+          public function AllStudentIcon(){
+              $sql = "SELECT COUNT(*) FROM users WHERE role = 3"; 
+              $result = $this->db->dbh->prepare($sql); 
+              $result->execute(); 
+              $number_of_rows = $result->fetchColumn(); 
+              return $number_of_rows;
+              }
+  
 }
 // "SELECT profil.*,categories.cat_name,users.name FROM profil 
 //         INNER JOIN categories

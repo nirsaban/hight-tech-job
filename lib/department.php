@@ -85,6 +85,13 @@ public function getMessage($id,$table){
         return 'somthing warng';
     }   
 }
+public function getAllAgCount(){
+    $sql = "SELECT COUNT(*)from students_messages INNER JOIN employers_messages ON students_messages.user_id = employers_messages.user_id and students_messages.job_id = employers_messages.job_id"; 
+    $result = $this->db->dbh->prepare($sql); 
+    $result->execute(); 
+    $number_of_rows = $result->fetchColumn(); 
+    return $number_of_rows;
+}
 }
 
 

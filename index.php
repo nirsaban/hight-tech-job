@@ -10,6 +10,11 @@ $job = new Job();
 $hackerU = new Department();
 $template = new Template('templates/frontpage.php');
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+$students = new User('uu');
+$template->allStudent =  $students->AllStudentIcon();
+$template->AllJobs = $job->getAllJobsCount();
+$template->Ag = $hackerU->getAllAgCount();
+
 if($role == 1){
     $id  =(int)$_SESSION['id'];
     $template->jobs = $job->getAllJobsByUserId($id);

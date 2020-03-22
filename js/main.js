@@ -1,30 +1,11 @@
 window.onload = function init(){
-   console.log(PRESENT)
-  
-   function present(PRESENT){
-       let count = []
-    
-    for (const [key, value] of Object.entries(PRESENT)) {
-        count.push(key)
-        let div = document.querySelector(`.${key}`);
-        let color = $(div).data("color");
-        $(div).css("background", color) 
-        div.style.transition = 'background 0.5s ease-in-out'
-       }  
-      let pre =  document.querySelector('.present').innerHTML = count.length* 14 + '% '   
-      pre.style.fontSize = " 2rem"
-   }
-   present(PRESENT)
-  
-   
-    let check = document.querySelector('.countMessages');
+      let check = document.querySelector('.countMessages');
     if(check != null){
     let countId = document.querySelector('.countMessages').value;
     if(countId != null ){
         axios({method:'get',url:`count.php?count=${countId}`})
         .then(({data})=>{
-        document.querySelector('.count').innerHTML = data;
-           
+        document.querySelector('.count').innerHTML = data;      
         });
     }
 }
@@ -41,6 +22,28 @@ window.onload = function init(){
   
 }
 
+    $('.ms').delay(2200).slideUp();
+    
+    
+    
+  
+   function present(PRESENT){
+       console.log(PRESENT)
+       let count = []
+    for (const [key, value] of Object.entries(PRESENT)) {
+        count.push(key)
+        let div = document.querySelector(`.${key}`);
+        let color = $(div).data("color");
+        $(div).css("background", color) 
+        div.style.transition = 'background 0.5s ease-in-out'
+       }  
+      let pre =  document.querySelector('.present').innerHTML = count.length* 14 + '% ' ;  
+    //   pre.style.fontSize = " 2rem"
+   }
+   present(PRESENT)
+  
+   
+  
   
 
 
@@ -134,5 +137,8 @@ function getProfil(id){
     }}).then(()=>{
       console.log('yes')
      });
+}
+function linksWork(link){
+   console.log(location.href = link)
 }
  

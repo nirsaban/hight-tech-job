@@ -1,17 +1,15 @@
 <?php include 'inc/header.php';?>
- <?php if($_SESSION['id'] == $user->id || $_SESSION['role'] == 1):?>
+ <?php if($_SESSION['id'] == $user->id || $_SESSION['role'] == 2 || $_SESSION['role'] == 1):?>
    
 
 <div class="container emp-profile">
 
     <div class="row">
-     
            
-            <?php $image = "images_$user->id" ?>  
              <div class="col-md-4">
              <div class="profile-img">
             <?php if(isset($myProfil->image)):?>
-           
+              <?php $image = "images_$user->id"; ?>  
              <img src= "<?=$image ?>/<?=$myProfil->image?>">
             <?php else:?>
             <img src= "images/avatar.jpg">
@@ -96,7 +94,8 @@
                 <?php if(isset($myProfil->links)):?>
                 <?php $arrLi =  json_decode($myProfil->links)?>
                 <?php foreach($arrLi as $link): ?>
-                    <a class="text-primary col-md-4"  href="<?= $link ?? '#'?>"><?=$link; ?></a><br/>
+                
+                    <a class="text-primary col-md-4"  href="<?= $link ?>"> <?=$link; ?></a><br/>
                 <?php endforeach;?>
                 <?php endif;?>
             
@@ -124,9 +123,9 @@
    <div data-color = "rgba(255, 0, 0, 0.4)" class="about_me item">about</div>
    <div data-color = "rgba(255, 0, 0, 0.5)" class="education item">education</div>
    <div data-color = "rgba(255, 0, 0, 0.6)" class="my_skills item">skills</div>
-   <div data-color = "rgba(255, 0, 0, 0.7);" class="links item">links</div>
-   <div data-color = "rgba(255, 0, 0, 0.8);" class="cv item">cv</div>
-   <div  data-color = "rgba(255, 0, 0, 0.9);" class="image item">image</div>
+   <div data-color = "rgba(255, 0, 0, 0.7)" class="links item">links</div>
+   <div data-color = "rgba(255, 0, 0, 0.8)" class="cv item">cv</div>
+   <div  data-color = "rgba(255, 0, 0, 0.9)" class="image item">image</div>
    <div class="present item">present</div>
    </div>
   
@@ -136,5 +135,5 @@
    <?php include 'inc/footer.php';?>
                <?php else:?>
               
-   <?php header('Location:login.php');?>
+   <?php header('Location:index.php');?>
    <?php endif;?>

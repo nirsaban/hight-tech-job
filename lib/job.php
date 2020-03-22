@@ -116,6 +116,13 @@ class Job {
          return  $row;
         }
     }
+    public function getAllJobsCount(){
+        $sql = "SELECT COUNT(*) FROM jobs"; 
+        $result = $this->db->dbh->prepare($sql); 
+        $result->execute(); 
+        $number_of_rows = $result->fetchColumn(); 
+        return $number_of_rows;
+    }
    
 }
 

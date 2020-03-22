@@ -5,11 +5,26 @@
   $noProf = isset($noProf)?$noProf:'';
 }
 ?>
+
 <main role="main">
+
 <?php displayMessage();?>
   <!-- Main jumbotron for a primary marketing message or call to action -->
   <div class="jumbotron">
-    <div class="container">
+  
+  <div class="sub-nav ">
+      <div class="con">
+  <i class="fas fa-user-graduate fa-2x " ></i> <span class="AllStudentsIcon"><?= $allStudent ?></span>  
+  </div>
+  <div class="con">
+  <img src="images/job.png" alt="" class="jobIcon" width="28px" height="38px"><span class="AllJobsIcon"><?= $AllJobs ?></span>
+  </div>
+  <div class="con">
+    <i class="fas fa-handshake fa-2x"></i><span class="AllAgIcon"><?= $Ag ?></span>
+  </div>
+    </div>
+   <div class="container5 ">
+  
       <?php if(!$_SESSION):?>
       <h1 class="display-3">Welcome Visitor To do Somthing Please Login</h1>
       <?php else: ?>
@@ -30,6 +45,7 @@
     
   </div>
   
+ 
   <div class="container">
   
   

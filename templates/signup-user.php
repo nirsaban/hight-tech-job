@@ -21,10 +21,11 @@
   </div>
   <select class="form-control" name="role">
 <option value="0">Choose Your role</option>
-<option value="1">Placement Department</option>
-<option value="2">Employers</option>
+<option value="2">Placement Department</option>
+<option value="1">Employers</option>
 <option value="3">graduate</option>
 </select>
+<span class="text-danger"><?= $errors['role'] ?? ''?></span>
   <!-- <div class="form-group">
     <label for="CV">Your CV</label>
     <input type="file" class="form-control" id="pwd" name="cv" >

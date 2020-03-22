@@ -8,6 +8,7 @@
 <div class="container ">
     <div class="row align-items-center">
 <form action="edit.php?id=<?=$job->id?>" method="POST" class="col-md-6 p-10  " >
+<input type="hidden" name="id" value = "<?=$job->id?>">
 <div class="form-group">
 <label for="">Company</label>
 <input type="text" class="form-control" name="company" value = <?=$job->company?>>
@@ -18,7 +19,7 @@
 <option value="0">Choose Category from List</option>
 <?php foreach($categories as $category):?>
     <?php if($job->category_id == $category->id):?>
-        <option value= <?= $category->id?> selected><?= $category->name?></option>
+        <option value= <?= $category->id?> selected><?= $category->cat_name?></option>
 <?php else:?>
 <?php endif?>
 
@@ -27,28 +28,28 @@
 </div>
 <div class="form-group">
 <label for="">Job title</label>
-<input type="text" class="form-control" name="job_title" value = <?=$job->job_title?>>
+<input type="text" class="form-control" name="job_title" value = "<?=$job->job_title?>">
 </div>
 <div class="form-group">
 <label for="">Description</label>
-<input type="text" class="form-control" name="description" value = <?=$job->description?>>
+<input type="text" class="form-control" name="description" value = "<?=$job->description?>">
 </div>
 <div class="form-group">
 <label for="">location</label>
-<input type="text" class="form-control" name="location" value = <?=$job->location?>>
+<input type="text" class="form-control" name="location" value = "<?=$job->location?>">
 </div>
 <div class="form-group">
 <label for="">Salary</label>
-<input type="number" class="form-control" name="salary" value = <?=$job->salary?>>
+<input type="text" class="form-control" name="salary" value = "<?=$job->salary?>">
 </div>
 
 <div class="form-group">
 <label for="">Phone number</label>
-<input type="number" class="form-control" name="phone" value = <?=$job->contact_user?>>
+<input type="number" class="form-control" name="phone" value = "<?=$job->contact_user?>">
 </div>
 <div class="form-group">
 <label for="">Email</label>
-<input type="email" class="form-control" name="email" value = <?=$job->contact_email?>><br>
+<input type="email" class="form-control" name="email" value =" <?=$job->contact_email?>"><br>
 <input type="submit" name="submit" class="btn btn-danger" value="Update JOB">
 </div>
 </form>

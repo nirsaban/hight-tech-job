@@ -22,9 +22,9 @@ function displayMessage(){
     if(!empty($_SESSION['message_type'])){
         $message_type= $_SESSION['message_type'];
         if($message_type == 'error'){
-            echo '<div class="alert alert-danger">'.$message. '</div>';
+            echo '<div class="alert alert-danger ms">'.$message. '</div>';
         }else{
-            echo '<div class="alert alert-success">'.$message. '</div>';
+            echo '<div class="alert alert-success ms">'.$message. '</div>';
 
         }
     }

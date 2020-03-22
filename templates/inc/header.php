@@ -180,8 +180,10 @@ span.tags
       <?php if(isset($_SESSION['name'])):?>
       <li class="nav-item active"> <a class="nav-link" href="logout.php">logout</a></li>
        <?php endif;?>
-       <?php if(isset($role) && $role == 1 || $role == 2):?> 
+       <?php if(isset($role) &&  $role == 1):?> 
         <li class="nav-item active"><a class="nav-link" href="create.php">Create Listing</a></li>
+        <?php endif;?>
+        <?php if(isset($role) &&  $role == 2):?>
         <li class="nav-item active"><a class="nav-link" href="students.php?all_students">See all students</a></li>
         <?php endif;?>
        <?php if(!isset($_SESSION['name'])):?>

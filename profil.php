@@ -13,6 +13,7 @@ if(isset($_GET['id'])){
     $profil = new Profil('foo');
     $user = new User($id);
     $job = new Job();
+
     $template->myProfil = $profil->getProfil($id);
     $template->user = $user->getUser();
     $template->categories = $job->getCategories();

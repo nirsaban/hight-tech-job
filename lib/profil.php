@@ -232,4 +232,9 @@ public function uploadCv($value,$id){
   
   }
 }
+public function getOnlyLinks($id){
+    $this->db->query("SELECT links from profil WHERE user_id = :id");
+    $row = $this->db->single();
+    return $row;
+}
 }
